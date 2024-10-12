@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import mealSerializer
 from .models import meals
+from producer import publish
 # Create your views here.
 @api_view(['GET'])
 def home(request,name):
@@ -18,17 +19,17 @@ def home(request,name):
     for i in data:
       if i["strCategory"] == categoryName:
         data_db={
-          "mealId" : i["idMeal"],
+          "id" : i["idMeal"],
           "name" : i["strMeal"],
           "category" : i["strCategory"],
           "area" : i["strArea"],
-          "liked": False 
         }
         serializer = mealSerializer(data = data_db)
         # print(serializer.data)
         if serializer.is_valid():
-          if not meals.objects.filter(mealId=data_db["mealId"]).exists():
+          if not meals.objects.filter(id=data_db["id"]).exists():
             serializer.save()
+            publish('meal produced',serializer.data)
         filtered_meals.append(i)
     # print(filtered_meals[0])
     return Response({"meals":filtered_meals})

@@ -16,21 +16,21 @@ class Meal(db.Model):
     name = db.Column(db.String(50))
     category = db.Column(db.String(50))
     area = db.Column(db.String(50))
-    liked = db.Column(db.Boolean)
-@app.route('/',methods = ['POST'])
+    # liked = db.Column(db.Boolean)
+@app.route('/api/searched-meal',methods = ['GET'])
 def home():
-    data = request.get_json()
+    # data = request.get_json()
     # print(data['name'])
     # print(type(data))
-    meal = Meal(id= data['id'], name= data['name'], category= data['category'], area= data['area'], liked= data['liked'])
-    # print(meal)
-    db.session.add(meal)
-    db.session.commit()
-    get_meal = Meal.query.get(1)
+    # meal = Meal(id= data['id'], name= data['name'], category= data['category'], area= data['area'], liked= data['liked'])
+    # # print(meal)
+    # db.session.add(meal)
+    # db.session.commit()
+    get_meal = Meal.query.all()
     # print(get_meal.name)
     return jsonify(
         {
-          "name": get_meal.name
+          "meals": get_meal
         }
     )
 if __name__ == '__main__':
