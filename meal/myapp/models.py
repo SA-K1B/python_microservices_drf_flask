@@ -6,6 +6,7 @@ class meals(models.Model):
     name = models.CharField(max_length=50)
     category = models.CharField (max_length=50)
     area = models.CharField(max_length=50)
+    image = models.CharField(null = True)
     # liked = models.BooleanField()
     def __str__(self):
         return self.name

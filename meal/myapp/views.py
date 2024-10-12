@@ -8,6 +8,9 @@ from .models import meals
 from producer import publish
 # Create your views here.
 @api_view(['GET'])
+def index(request):
+  return render(request,'home.html')
+@api_view(['GET'])
 def home(request,name):
     url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=%s'
     response = requests.get(url)
@@ -23,16 +26,16 @@ def home(request,name):
           "name" : i["strMeal"],
           "category" : i["strCategory"],
           "area" : i["strArea"],
+          "image": i["strMealThumb"]
         }
         serializer = mealSerializer(data = data_db)
-        # print(serializer.data)
+        # print(serializer.is_valid())
         if serializer.is_valid():
           if not meals.objects.filter(id=data_db["id"]).exists():
             serializer.save()
+            # print(serializer.data)
+            # print("hi")
             publish('meal produced',serializer.data)
         filtered_meals.append(i)
     # print(filtered_meals[0])
     return Response({"meals":filtered_meals})
-@api_view(['POST'])
-def favourite(request,id):
-  pass

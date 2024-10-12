@@ -11,7 +11,7 @@ def callback(ch,method,properties,body):
     print(type(data))
     print(data)
     with app.app_context():
-        meal = Meal(id= data['id'], name= data['name'], category= data['category'], area= data['area'])
+        meal = Meal(id= data['id'], name= data['name'], category= data['category'], area= data['area'],image=data['image'])
         # print(meal)
         db.session.add(meal)
         db.session.commit()
