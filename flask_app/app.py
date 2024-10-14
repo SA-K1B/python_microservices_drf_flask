@@ -5,9 +5,11 @@ from dataclasses import dataclass
 import requests
 from flask_migrate import Migrate
 from flask_cors import CORS
+import os
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flask_db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('db_user')}:{os.getenv('db_password')}@localhost:5432/{os.getenv('db_name')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@postgresql-flask/flask_db'
 db = SQLAlchemy(app)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/flask_db'
 migrate = Migrate(app,db)
@@ -43,6 +45,7 @@ def home():
             "area": i.area,
             "image": i.image
         })
+        
     return jsonify(
         {
           "meals": meals

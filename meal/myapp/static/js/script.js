@@ -2,7 +2,7 @@ function fetchMealData() {
     const categoryName = document.getElementById('categoryName').value;
     
     // Fetching the data from the DRF API (your Django view)
-    fetch(`http://127.0.0.1:8000/${categoryName}`)
+    fetch(`http://127.0.0.1:8080/${categoryName}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok: ' + response.statusText);

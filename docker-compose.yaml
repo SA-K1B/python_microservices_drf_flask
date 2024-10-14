@@ -1,0 +1,81 @@
+version: '3.8'
+services:
+  postgresql-django:
+    image: postgres:17.0
+    volumes:
+      - postgresql-django-db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    # env_file:
+    #   - ./meal/.env
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  django:
+    build:
+      context: ./meal
+      dockerfile: Dockerfile
+    volumes:
+      - ./meal:/app
+      - staticdjango:/app/staticfiles
+    ports:
+      - "8001:8000"
+    env_file:
+      - ./meal/.env
+    depends_on:
+      postgresql-django:
+        condition: service_healthy
+  postgresql-flask:
+        image: postgres:17.0
+        volumes:
+          - postgresql-flask-db:/var/lib/postgresql/data
+        ports:
+          - "5434:5432"
+        # env_file:
+        #   - ./flask_app/.env
+        environment:
+          - POSTGRES_DB=flask_db
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        healthcheck:
+          test: ["CMD-SHELL", "pg_isready -U postgres"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
+  flask:
+    build:
+      context: ./flask_app
+      dockerfile: Dockerfile
+    volumes:
+      - ./flask_app:/app
+      - staticflask:/app/static
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./flask_app/.env
+    depends_on:
+      postgresql-flask:
+        condition: service_healthy        
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      # - staticflask:/staticflask
+      - staticdjango:/staticdjango
+    ports:
+      - "8080:80"
+    depends_on:
+      - django
+      - flask
+volumes:
+  staticdjango:
+  staticflask:
+  postgresql-django-db:
+  postgresql-flask-db:
