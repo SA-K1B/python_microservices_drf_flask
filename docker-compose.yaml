@@ -9,9 +9,6 @@ services:
     env_file:
       - ./meal/.env
     environment:
-      # - POSTGRES_DB=${DB_NAME}
-      # - POSTGRES_USER=${DB_USER}
-      # - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=django_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -43,9 +40,6 @@ services:
         env_file:
           - ./flask_app/.env
         environment:
-        #  - POSTGRES_DB=${DB_NAME}
-        #  - POSTGRES_USER=${DB_USER}
-        #  - POSTGRES_PASSWORD=${DB_PASSWORD}
           - POSTGRES_DB=flask_db
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
