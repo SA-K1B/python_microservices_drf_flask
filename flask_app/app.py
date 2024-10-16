@@ -6,6 +6,7 @@ import requests
 from flask_migrate import Migrate
 from flask_cors import CORS
 import os
+from sqlalchemy import UniqueConstraint
 app = Flask(__name__)
 CORS(app)
 # app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{os.getenv('db_user')}:{os.getenv('db_password')}@localhost:5432/{os.getenv('db_name')}"
@@ -21,11 +22,12 @@ class Meal(db.Model):
     category = db.Column(db.String(50))
     area = db.Column(db.String(50))
     image = db.Column(db.String(200))
+    __table_args__ = (UniqueConstraint('name', name='uq_meal_name'),)
     # liked = db.Column(db.Boolean)
 @app.route('/searched',methods = ['GET'])
 def index():
     return render_template('searchedMeal.html')
-@app.route('/api/searched-meal',methods = ['GET'])
+@app.route('/searched/list',methods = ['GET'])
 def home():
     # data = request.get_json()
     # print(data['name'])

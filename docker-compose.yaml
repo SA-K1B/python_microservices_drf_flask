@@ -6,9 +6,12 @@ services:
       - postgresql-django-db:/var/lib/postgresql/data
     ports:
       - "5433:5432"
-    # env_file:
-    #   - ./meal/.env
+    env_file:
+      - ./meal/.env
     environment:
+      # - POSTGRES_DB=${DB_NAME}
+      # - POSTGRES_USER=${DB_USER}
+      # - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=django_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -37,9 +40,12 @@ services:
           - postgresql-flask-db:/var/lib/postgresql/data
         ports:
           - "5434:5432"
-        # env_file:
-        #   - ./flask_app/.env
+        env_file:
+          - ./flask_app/.env
         environment:
+        #  - POSTGRES_DB=${DB_NAME}
+        #  - POSTGRES_USER=${DB_USER}
+        #  - POSTGRES_PASSWORD=${DB_PASSWORD}
           - POSTGRES_DB=flask_db
           - POSTGRES_USER=postgres
           - POSTGRES_PASSWORD=postgres
@@ -67,7 +73,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      # - staticflask:/staticflask
+      - staticflask:/staticflask
       - staticdjango:/staticdjango
     ports:
       - "8080:80"

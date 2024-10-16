@@ -75,14 +75,14 @@ h3 {
 
 /* Custom button */
  .btn-primary {
-    background-color: #138D75;
+    background-color: #8dc4e9;
     transition: background-color 0.2s ease, transform 0.2s ease;
     width: 100%; /* Full width */
     text-align: center;
 }
 
 .btn-primary:hover {
-    background-color: #138D75;
+    background-color: #6ea1c4;
     transform: translateY(-2px);
 } 
 

@@ -29,13 +29,14 @@ def home(request,name):
           "image": i["strMealThumb"]
         }
         serializer = mealSerializer(data = data_db)
+        print("Ettuk thik ase")
         # print(serializer.is_valid())
         if serializer.is_valid():
           if not meals.objects.filter(id=data_db["id"]).exists():
             serializer.save()
-            # print(serializer.data)
-            # print("hi")
+            print("hi before")
             publish('meal produced',serializer.data)
+            print("hi")
         filtered_meals.append(i)
     # print(filtered_meals[0])
     return Response({"meals":filtered_meals})
