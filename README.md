@@ -7,6 +7,14 @@ A Python-based microservices application that allows searching for meal based on
 <!-- GETTING STARTED -->
 <!--## Description-->
 <!--A grocery recommendation system that uses the Apriori algorithm to suggest related items based on user input. The API is built with Django, containerized using Docker, and deployed on Render. GitHub Actions automates CI/CD to streamline the deployment process.-->
+### 🔧 Tech Stack
+* [![Django Rest Framework][DRF.img]][DRF-url]
+* [![Flask][Flask.img]][Flask-url]
+* [![PostgreSQL][PostgreSQL.img]][PostgreSQL-url]
+* [![RabbitMQ][RabbitMQ.img]][RabbitMQ-url]
+* [![Nginx][Nginx.img]][Nginx-url]
+* [![Docker][Docker.img]][Docker-url]
+
 ## 📌 Project Highlights
 **Django Rest Framework:** Built an api using django rest framework for searching meal which retrieves meal data from an external api.
 
@@ -19,14 +27,6 @@ A Python-based microservices application that allows searching for meal based on
 **Nginx:** Configured Nginx as a reverse proxy server to route client requests to the appropriate backend service.
 
 **Docker Compose:** Used Docker Compose to manage and run all services in isolated containers.
-
-### 🔧 Tech Stack
-* [![Django Rest Framework][DRF.img]][DRF-url]
-* [![Flask][Flask.img]][Flask-url]
-* [![PostgreSQL][PostgreSQL.img]][PostgreSQL-url]
-* [![RabbitMQ][RabbitMQ.img]][RabbitMQ-url]
-* [![Nginx][Nginx.img]][Nginx-url]
-* [![Docker][Docker.img]][Docker-url]
 
 ### ⚙️ Installation with Docker
 
